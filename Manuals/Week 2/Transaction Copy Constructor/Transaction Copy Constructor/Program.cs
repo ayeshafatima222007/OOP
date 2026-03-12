@@ -21,7 +21,7 @@ namespace Transaction_Copy_Constructor
 
             Console.WriteLine();
 
-            Console.WriteLine("Copied Transaction");
+            Console.WriteLine("Copied Transaction:");
             t2.Display();
         }
     }

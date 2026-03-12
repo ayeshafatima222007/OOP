@@ -33,7 +33,7 @@ namespace Transaction_Copy_Constructor
 
         public void Display()
         {
-            Console.WriteLine("Transaction ID:  " + TransactionId);
+            Console.WriteLine("Transaction ID :  " + TransactionId);
             Console.WriteLine("Product Name: " + ProductName);
             Console.WriteLine("Amount: " + Amount);
             Console.WriteLine("Date and Time: " + DateTime);
