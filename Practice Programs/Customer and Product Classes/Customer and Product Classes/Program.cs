@@ -13,22 +13,41 @@ namespace Customer_and_Product_Classes
         {
             Customer c = new Customer();
 
-            c.CustomerName = "Ali";
-            c.CustomerAddress = "Lahore";
-            c.CustomerCity = "LHR";
+            Console.Write("Enter Customer Name: ");
+            c.CustomerName = Console.ReadLine();
 
-            Product p1 = new Product();
-            p1.ProductName = "Milk";
-            p1.Category = "Grocery";
-            p1.ProductPrice = 100;
+            Console.Write("Enter Customer Address: ");
+            c.CustomerAddress = Console.ReadLine();
 
-            Product p2 = new Product();
-            p2.ProductName = "Bread";
-            p2.Category = "Grocery";
-            p2.ProductPrice = 80;
+            Console.Write("Enter Customer City: ");
+            c.CustomerCity = Console.ReadLine();
 
-            c.addProduct(p1);
-            c.addProduct(p2);
+            // ---- Number of products ----
+            Console.Write("How many products to add? ");
+            int numProducts = int.Parse(Console.ReadLine());
+
+            for (int i = 0; i < numProducts; i++)
+            {
+                Product p = new Product();
+
+                Console.WriteLine($"\nEnter details for Product #{i + 1}:");
+
+                Console.Write("Name: ");
+                p.ProductName = Console.ReadLine();
+
+                Console.Write("Category: ");
+                p.Category = Console.ReadLine();
+
+                Console.Write("Price: ");
+                p.ProductPrice = int.Parse(Console.ReadLine());
+
+                // Add product to customer
+                c.addProduct(p);
+            }
+
+            // ---- Display Products ----
+            Console.WriteLine($"\nCustomer: {c.CustomerName}, Address: {c.CustomerAddress}, Contact: {c.CustomerCity}");
+            Console.WriteLine("Products purchased:\n");
 
 
             List<Product> list = c.getAllproduct();
