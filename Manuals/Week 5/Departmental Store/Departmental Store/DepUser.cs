@@ -26,11 +26,11 @@ namespace Departmental_Store
             UserList.Add(user);
         }
         
-        public static DepUser AvailableUser(DepUser user)
+        public static DepUser AvailableUser(string Username, string Password)
         {
             foreach (DepUser storedUser in UserList)
             {
-                if (storedUser.Username == user.Username && storedUser.Password == user.Password)
+                if (storedUser.Username == Username && storedUser.Password == Password)
                 {
                     return storedUser;
                 }
