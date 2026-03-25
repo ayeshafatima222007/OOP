@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -26,6 +27,7 @@ namespace Departmental_Store
 
         public static void AddProduct()
         {
+
             Console.Write("Enter the name of the product:");
             string name = Console.ReadLine();
 
