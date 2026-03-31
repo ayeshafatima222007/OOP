@@ -54,14 +54,14 @@ namespace _2D_Point
             return Math.Sqrt((this.x - x) * (this.x - x) + (this.y - y) * (this.y - y));
         }
 
-        public double distanceWithObject(MyPoint P)
+        public double distanceWithObject(MyPoint P)    //P obj of MyPoint as parameter to access its x,y
         {
-
+            return distanceWithCords(P.x,P.y);   
         }
 
         public double distanceFromZero()
         {
-
+            return distanceWithCords(0,0);
         }
 
     }
