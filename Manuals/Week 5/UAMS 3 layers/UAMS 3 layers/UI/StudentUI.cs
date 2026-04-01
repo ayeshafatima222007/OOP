@@ -10,7 +10,7 @@ using UAMS_3_layers.DL;
 
 namespace UAMS_3_layers.UI
 {
-    public static class StudentUI
+    internal class StudentUI
     {
         public static StudentBL takeInputForStudent()       
         {

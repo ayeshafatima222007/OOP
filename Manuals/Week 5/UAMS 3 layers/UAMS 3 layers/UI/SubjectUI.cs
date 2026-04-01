@@ -7,7 +7,7 @@ using UAMS_3_layers.BL;
 
 namespace UAMS_3_layers.UI
 {
-    public static class SubjectUI
+    internal class SubjectUI
     {
         public static SubjectBL TakeSubjectInput()
         {

@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace UAMS_3_layers.BL
 {
-    public class StudentBL
+    internal class StudentBL
     {
         public string Name;
         public int age;

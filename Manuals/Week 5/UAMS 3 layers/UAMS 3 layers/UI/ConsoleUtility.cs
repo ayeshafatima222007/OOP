@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UAMS_3_layers.UI
 {
-    public static class ConsoleUtility
+    internal class ConsoleUtility
     {
         public static void Header()
         {

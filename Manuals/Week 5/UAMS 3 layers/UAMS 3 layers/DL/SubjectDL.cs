@@ -7,7 +7,7 @@ using UAMS_3_layers.BL;
 
 namespace UAMS_3_layers.DL    //we use BL here because we have to access BL classes
 {
-    public static class SubjectDL
+    internal class SubjectDL
     {
         public static SubjectBL FindByCode(List<SubjectBL> subjects, string code)
         {

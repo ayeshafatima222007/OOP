@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace UAMS_3_layers.BL
 {
-    public class DegreeProgramBL
+    internal class DegreeProgramBL
     {
         public string title;
         public float duration;

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace UAMS_3_layers.BL
 {
-    public class SubjectBL
+    internal class SubjectBL
     {
         public string SubjCode;
         public int CRH;

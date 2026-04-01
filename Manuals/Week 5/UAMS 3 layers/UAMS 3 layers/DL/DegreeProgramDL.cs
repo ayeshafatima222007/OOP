@@ -7,7 +7,7 @@ using UAMS_3_layers.BL;
 
 namespace UAMS_3_layers.DL    //we use BL here because we have to access BL classes
 {
-    public static class DegreeProgramDL
+    internal class DegreeProgramDL
     {
         public static List<DegreeProgramBL> programList = new List<DegreeProgramBL>();
 
