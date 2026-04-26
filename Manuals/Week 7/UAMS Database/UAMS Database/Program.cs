@@ -21,12 +21,17 @@ namespace UAMS_Database
 
                 if (choice == 1)
                 {
-                    if (DegreeProgramDL.programList.Count == 0)
+                    //Load from database instead of checking in-memory list
+                    List<DegreeProgramBL> allPrograms = DegreeProgramDL.GetAllDegreePrograms();
+
+                    if (allPrograms.Count == 0)
                     {
                         Console.WriteLine("No degree programs available. Please add a degree program first.");
                     }
                     else
                     {
+                        //Also update programList so StudentUI can show them
+                        DegreeProgramDL.programList = allPrograms;
                         StudentDL.AddStudent(StudentUI.TakeInputForStudent());
                     }
                 }
@@ -41,7 +46,9 @@ namespace UAMS_Database
                     Console.Write("Enter Degree Title: ");
                     string title = Console.ReadLine();
 
-                    DegreeProgramBL deg = DegreeProgramDL.programList.Find(d => d.GetTitle() == title);
+                    //Search from database instead of in-memory list
+                    List<DegreeProgramBL> allPrograms = DegreeProgramDL.GetAllDegreePrograms();
+                    DegreeProgramBL deg = allPrograms.Find(d => d.GetTitle() == title);
 
                     if (deg != null)
                     {
@@ -55,38 +62,31 @@ namespace UAMS_Database
 
                 else if (choice == 4)
                 {
-                    foreach (StudentBL s in StudentDL.studentList)
-                    {
+                    List<StudentBL> studentList = StudentDL.GetAllStudents();
+
+                    foreach (StudentBL s in studentList)
                         s.CalculateMerit();
-                    }
 
-                    for (int i = 0; i < StudentDL.studentList.Count - 1; i++)
-                    {
-                        for (int j = 0; j < StudentDL.studentList.Count - 1 - i; j++)
-                        {
-                            if (StudentDL.studentList[j].GetMerit() < StudentDL.studentList[j + 1].GetMerit())
+                    for (int i = 0; i < studentList.Count - 1; i++)
+                        for (int j = 0; j < studentList.Count - 1 - i; j++)
+                            if (studentList[j].GetMerit() < studentList[j + 1].GetMerit())
                             {
-                                StudentBL temp = StudentDL.studentList[j];
-                                StudentDL.studentList[j] = StudentDL.studentList[j + 1];
-                                StudentDL.studentList[j + 1] = temp;
+                                StudentBL temp = studentList[j];
+                                studentList[j] = studentList[j + 1];
+                                studentList[j + 1] = temp;
                             }
-                        }
-                    }
 
-                    foreach (StudentBL s in StudentDL.studentList)
-                    {
+                    foreach (StudentBL s in studentList)
                         foreach (DegreeProgramBL d in s.GetPreferences())
-                        {
                             if (d.GetSeats() > 0 && s.GetRegDegree() == null)
                             {
                                 s.SetRegDegree(d);
                                 d.SetSeats(d.GetSeats() - 1);
+                                StudentDL.UpdateRegDegree(s.GetName(), d.GetTitle());
                                 break;
                             }
-                        }
-                    }
 
-                    StudentUI.PrintMeritList(StudentDL.studentList);
+                    StudentUI.PrintMeritList(studentList);
                 }
 
                 else if (choice == 5)
