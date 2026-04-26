@@ -11,14 +11,14 @@ namespace UAMS_Database.UI
     {
         public static SubjectBL TakeSubjectInput()
         {
-            Console.Write("Enter Subject Code:");
+            Console.Write("Enter Subject Code: ");
             string code = Console.ReadLine();
 
-            int CreditHr;
+            int creditHr;
             while (true)
             {
-                Console.Write("Enter Subject Credit Hours:");
-                if (int.TryParse(Console.ReadLine(), out CreditHr))
+                Console.Write("Enter Subject Credit Hours: ");
+                if (int.TryParse(Console.ReadLine(), out creditHr))
                 {
                     break;
                 }
@@ -28,14 +28,14 @@ namespace UAMS_Database.UI
                 }
             }
 
-            Console.Write("Enter Subject Type:");
+            Console.Write("Enter Subject Type: ");
             string type = Console.ReadLine();
 
-            float SubjFee;
+            float subjFee;
             while (true)
             {
-                Console.Write("Enter Subject Fees:");
-                if (float.TryParse(Console.ReadLine(), out SubjFee))
+                Console.Write("Enter Subject Fees : ");
+                if (float.TryParse(Console.ReadLine(), out subjFee))
                 {
                     break;
                 }
@@ -45,8 +45,7 @@ namespace UAMS_Database.UI
                 }
             }
 
-            SubjectBL s = new SubjectBL(code, CreditHr, type, SubjFee);
-
+            SubjectBL s = new SubjectBL(code, creditHr, type, subjFee);
             return s;
         }
     }

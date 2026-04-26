@@ -9,67 +9,77 @@ namespace UAMS_Database
 {
     internal class StudentBL
     {
-        public string Name;
-        public int age;
-        public float FSCMarks;
-        public float ECATMarks;
-        public double merit;
+        private string name;
+        private int age;
+        private float fscMarks;
+        private float ecatMarks;
+        private double merit;
+        private List<DegreeProgramBL> preferences;
+        private List<SubjectBL> regSubj;
+        private DegreeProgramBL regDegree;
 
-        public List<DegreeProgramBL> prefrences;
-        public List<SubjectBL> RegSubj;
-
-        public DegreeProgramBL RegDegree;
-
-
-        public StudentBL(string Name, int age, float FSCMarks, float ECATMarks)
+        public StudentBL(string name, int age, float fscMarks, float ecatMarks)
         {
-            this.Name = Name;
+            this.name = name;
             this.age = age;
-            this.FSCMarks = FSCMarks;
-            this.ECATMarks = ECATMarks;
+            this.fscMarks = fscMarks;
+            this.ecatMarks = ecatMarks;
             this.merit = 0;
-            this.RegDegree = null;
-
-            prefrences = new List<DegreeProgramBL>();
-            RegSubj = new List<SubjectBL>();
+            this.regDegree = null;
+            preferences = new List<DegreeProgramBL>();
+            regSubj = new List<SubjectBL>();
         }
+
+        public void SetName(string name) { this.name = name; }
+        public string GetName() { return name; }
+
+        public void SetAge(int age) { this.age = age; }
+        public int GetAge() { return age; }
+
+        public void SetFSCMarks(float fscMarks) { this.fscMarks = fscMarks; }
+        public float GetFSCMarks() { return fscMarks; }
+
+        public void SetECATMarks(float ecatMarks) { this.ecatMarks = ecatMarks; }
+        public float GetECATMarks() { return ecatMarks; }
+
+        public double GetMerit() { return merit; }
+
+        public void SetPreferences(List<DegreeProgramBL> preferences) { this.preferences = preferences; }
+        public List<DegreeProgramBL> GetPreferences() { return preferences; }
+
+        public void SetRegSubj(List<SubjectBL> regSubj) { this.regSubj = regSubj; }
+        public List<SubjectBL> GetRegSubj() { return regSubj; }
+
+        public void SetRegDegree(DegreeProgramBL regDegree) { this.regDegree = regDegree; }
+        public DegreeProgramBL GetRegDegree() { return regDegree; }
+
         public void CalculateMerit()
         {
-            merit = (FSCMarks * 0.30) + (ECATMarks * 0.70);
+            merit = (fscMarks * 0.30) + (ecatMarks * 0.70);
         }
 
         public int GetCreditHours()
         {
-
             int total = 0;
-            foreach (SubjectBL subject in RegSubj)
-            {
-                total = total + subject.CRH;
-
-            }
+            foreach (SubjectBL subject in regSubj)
+                total += subject.GetCRH();
             return total;
-
         }
 
         public float CalculateFee()
         {
             float total = 0;
-            foreach (SubjectBL subject in RegSubj)
-            {
-                total = total + subject.SubjFee;
-
-            }
+            foreach (SubjectBL subject in regSubj)
+                total += subject.GetSubjFee();
             return total;
-
         }
 
         public bool StdRegSubj(SubjectBL s)
         {
-            int StdCH = GetCreditHours();
-
-            if (RegDegree != null && RegDegree.isSubjectExists(s) && StdCH + s.CRH <= 9)
+            int stdCH = GetCreditHours();
+            if (regDegree != null && regDegree.IsSubjectExists(s) && stdCH + s.GetCRH() <= 9)
             {
-                RegSubj.Add(s);
+                regSubj.Add(s);
                 return true;
             }
             return false;

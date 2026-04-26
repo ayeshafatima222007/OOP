@@ -8,11 +8,10 @@ namespace UAMS_Database.BL
 {
     internal class DegreeProgramBL
     {
-        public string title;
-        public float duration;
-        public int seats;
-
-        public List<SubjectBL> subjects;
+        private string title;
+        private float duration;
+        private int seats;
+        private List<SubjectBL> subjects;
 
         public DegreeProgramBL(string title, float duration, int seats)
         {
@@ -21,40 +20,43 @@ namespace UAMS_Database.BL
             this.seats = seats;
             subjects = new List<SubjectBL>();
         }
-        public int calculateCreditHours()
+
+        public void SetTitle(string title) { this.title = title; }
+        public string GetTitle() { return title; }
+
+        public void SetDuration(float duration) { this.duration = duration; }
+        public float GetDuration() { return duration; }
+
+        public void SetSeats(int seats) { this.seats = seats; }
+        public int GetSeats() { return seats; }
+
+        public void SetSubjects(List<SubjectBL> subjects) { this.subjects = subjects; }
+        public List<SubjectBL> GetSubjects() { return subjects; }
+
+        public int CalculateCreditHours()
         {
             int total = 0;
             foreach (SubjectBL subject in subjects)
-            {
-                total = total + subject.CRH;
-
-            }
+                total += subject.GetCRH();
             return total;
-
         }
-        public bool isSubjectExists(SubjectBL sub)
+
+        public bool IsSubjectExists(SubjectBL sub)
         {
             foreach (SubjectBL subject in subjects)
-            {
-                if (subject.SubjCode == sub.SubjCode)
-                {
+                if (subject.GetSubjCode() == sub.GetSubjCode())
                     return true;
-                }
-            }
             return false;
-
         }
 
         public bool AddSubject(SubjectBL s)
         {
-            int creditHours = calculateCreditHours();
-            if (creditHours + s.CRH <= 20)
+            if (CalculateCreditHours() + s.GetCRH() <= 20)
             {
                 subjects.Add(s);
                 return true;
             }
             return false;
-
         }
     }
 }

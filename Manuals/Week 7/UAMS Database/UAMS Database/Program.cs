@@ -27,9 +27,8 @@ namespace UAMS_Database
                     }
                     else
                     {
-                        StudentDL.AddStudent(StudentUI.takeInputForStudent());
+                        StudentDL.AddStudent(StudentUI.TakeInputForStudent());
                     }
-
                 }
 
                 else if (choice == 2)
@@ -42,13 +41,12 @@ namespace UAMS_Database
                     Console.Write("Enter Degree Title: ");
                     string title = Console.ReadLine();
 
-                    DegreeProgramBL deg = DegreeProgramDL.programList.Find(d => d.title == title);
+                    DegreeProgramBL deg = DegreeProgramDL.programList.Find(d => d.GetTitle() == title);
 
                     if (deg != null)
                     {
                         DegreeProgramUI.AddSubjectToDegree(deg);
                     }
-
                     else
                     {
                         Console.WriteLine("Degree not found!");
@@ -62,11 +60,11 @@ namespace UAMS_Database
                         s.CalculateMerit();
                     }
 
-                    for (int i = 0; i < StudentDL.studentList.Count - 1; i++)       //finding the highest merit
+                    for (int i = 0; i < StudentDL.studentList.Count - 1; i++)
                     {
                         for (int j = 0; j < StudentDL.studentList.Count - 1 - i; j++)
                         {
-                            if (StudentDL.studentList[j].merit < StudentDL.studentList[j + 1].merit)
+                            if (StudentDL.studentList[j].GetMerit() < StudentDL.studentList[j + 1].GetMerit())
                             {
                                 StudentBL temp = StudentDL.studentList[j];
                                 StudentDL.studentList[j] = StudentDL.studentList[j + 1];
@@ -77,11 +75,13 @@ namespace UAMS_Database
 
                     foreach (StudentBL s in StudentDL.studentList)
                     {
-                        foreach (DegreeProgramBL d in s.prefrences)
+                        foreach (DegreeProgramBL d in s.GetPreferences())
                         {
-                            if (d.seats > 0 && s.RegDegree == null)
+                            if (d.GetSeats() > 0 && s.GetRegDegree() == null)
                             {
-                                s.RegDegree = d; d.seats--; break;
+                                s.SetRegDegree(d);
+                                d.SetSeats(d.GetSeats() - 1);
+                                break;
                             }
                         }
                     }
@@ -98,7 +98,6 @@ namespace UAMS_Database
                 {
                     Console.Write("Enter Degree Name: ");
                     string name = Console.ReadLine();
-
                     StudentDL.ViewStudentsInDegree(name);
                 }
 
@@ -106,7 +105,6 @@ namespace UAMS_Database
                 {
                     Console.Write("Enter Student Name: ");
                     string name = Console.ReadLine();
-
                     StudentBL s = StudentDL.FindByName(name);
                     StudentUI.RegisterSubjects(s);
                 }
@@ -115,12 +113,6 @@ namespace UAMS_Database
                 {
                     StudentDL.CalculateFeeForAll();
                 }
-
-                else if (choice == 9)
-                {
-
-                }
-
 
                 ConsoleUtility.Pause();
             }

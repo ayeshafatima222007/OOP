@@ -11,39 +11,38 @@ namespace UAMS_Database.UI
     {
         public static DegreeProgramBL TakeDegreeProgramInput()
         {
-            Console.Write("Enter degree title:");
+            Console.Write("Enter Degree Title: ");
             string title = Console.ReadLine();
 
             float duration;
             while (true)
             {
-                Console.Write("Enter Degree Program Time Duration(years):");
+                Console.Write("Enter Degree Program Duration (years): ");
                 if (float.TryParse(Console.ReadLine(), out duration))
                 {
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("Enter Valid Time Duration!!");
+                    Console.WriteLine("Enter Valid Duration!!");
                 }
             }
 
             int seats;
             while (true)
             {
-                Console.Write("Enter the number of seats:");
+                Console.Write("Enter Number of Seats: ");
                 if (int.TryParse(Console.ReadLine(), out seats))
                 {
                     break;
                 }
                 else
                 {
-                    Console.WriteLine("Enter Valid Credit Hour!!");
+                    Console.WriteLine("Enter Valid Seats!!");
                 }
             }
 
             DegreeProgramBL d = new DegreeProgramBL(title, duration, seats);
-
 
             int count;
             while (true)
@@ -55,7 +54,7 @@ namespace UAMS_Database.UI
                 }
                 else
                 {
-                    Console.WriteLine("Enter valid number!");
+                    Console.WriteLine("Enter Valid Number!!");
                 }
             }
 

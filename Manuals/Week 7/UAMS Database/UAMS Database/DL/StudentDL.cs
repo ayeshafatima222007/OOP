@@ -18,47 +18,30 @@ namespace UAMS_Database.DL
         public static StudentBL FindByName(string name)
         {
             foreach (StudentBL student in studentList)
-            {
-                if (student.Name == name && student.RegDegree != null)
-                {
+                if (student.GetName() == name && student.GetRegDegree() != null)
                     return student;
-                }
-
-            }
             return null;
         }
 
         public static void ViewRegisteredStudents()
         {
             foreach (StudentBL s in studentList)
-            {
-                if (s.RegDegree != null)
-                {
-                    Console.WriteLine($"{s.Name}  {s.age}");
-                }
-            }
+                if (s.GetRegDegree() != null)
+                    Console.WriteLine($"{s.GetName()}  {s.GetAge()}");
         }
 
         public static void ViewStudentsInDegree(string name)
         {
             foreach (StudentBL s in studentList)
-            {
-                if (s.RegDegree != null && s.RegDegree.title == name)
-                {
-                    Console.WriteLine($"{s.Name}  {s.age}");
-                }
-            }
+                if (s.GetRegDegree() != null && s.GetRegDegree().GetTitle() == name)
+                    Console.WriteLine($"{s.GetName()}  {s.GetAge()}");
         }
 
         public static void CalculateFeeForAll()
         {
             foreach (StudentBL s in studentList)
-            {
-                if (s.RegDegree != null)
-                {
-                    Console.WriteLine($"{s.Name} has {s.CalculateFee()} fees");
-                }
-            }
+                if (s.GetRegDegree() != null)
+                    Console.WriteLine($"{s.GetName()} has {s.CalculateFee()} fees");
         }
     }
 }

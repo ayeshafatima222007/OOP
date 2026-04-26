@@ -18,20 +18,18 @@ namespace UAMS_Database.UI
         public static int ShowMenu()
         {
             Header();
-            Console.WriteLine("1.Add Student");
-            Console.WriteLine("2.Add Degree Program");
-            Console.WriteLine("3.Add Subjects to Degree Program");
-            Console.WriteLine("4.Generate Merit List");
-            Console.WriteLine("5.View Registered Students");
-            Console.WriteLine("6.View Students of a Specific Program");
-            Console.WriteLine("7.Register Subjects for a Specific Students");
-            Console.WriteLine("8.Calculate Fee for all Registered Students");
-            Console.WriteLine("9.Exit");
+            Console.WriteLine("1. Add Student");
+            Console.WriteLine("2. Add Degree Program");
+            Console.WriteLine("3. Add Subjects to Degree Program");
+            Console.WriteLine("4. Generate Merit List");
+            Console.WriteLine("5. View Registered Students");
+            Console.WriteLine("6. View Students of a Specific Program");
+            Console.WriteLine("7. Register Subjects for a Specific Student");
+            Console.WriteLine("8. Calculate Fee for all Registered Students");
+            Console.WriteLine("9. Exit");
             Console.WriteLine("");
 
-
             int choice;
-
             while (true)
             {
                 Console.Write("Enter Option: ");
@@ -45,7 +43,6 @@ namespace UAMS_Database.UI
                     Console.WriteLine("");
                 }
             }
-
             return choice;
         }
 

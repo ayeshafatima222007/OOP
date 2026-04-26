@@ -10,42 +10,85 @@ namespace UAMS_Database.UI
 {
     internal class StudentUI
     {
-        public static StudentBL takeInputForStudent()
+        public static StudentBL TakeInputForStudent()
         {
             Console.Write("Enter Student Name: ");
             string name = Console.ReadLine();
 
-            Console.Write("Enter Student Age: ");
-            int age = int.Parse(Console.ReadLine());
+            int age;
+            while (true)
+            {
+                Console.Write("Enter Student Age: ");
+                if (int.TryParse(Console.ReadLine(), out age))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Enter Valid Age!!");
+                }
+            }
 
-            Console.Write("Enter FSC Marks: ");
-            float FSC = float.Parse(Console.ReadLine());
+            float fsc;
+            while (true)
+            {
+                Console.Write("Enter FSC Marks: ");
+                if (float.TryParse(Console.ReadLine(), out fsc))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Enter Valid Marks!!");
+                }
+            }
 
-            Console.Write("Enter ECAT Marks: ");
-            float ECAT = float.Parse(Console.ReadLine());
+            float ecat;
+            while (true)
+            {
+                Console.Write("Enter ECAT Marks: ");
+                if (float.TryParse(Console.ReadLine(), out ecat))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Enter Valid Marks!!");
+                }
+            }
 
-            StudentBL stu = new StudentBL(name, age, FSC, ECAT);
+            StudentBL stu = new StudentBL(name, age, fsc, ecat);
 
             Console.WriteLine("Available Degree Programs:");
             foreach (DegreeProgramBL d in DegreeProgramDL.programList)
             {
-                Console.WriteLine(d.title);
-                Console.WriteLine(d.duration);
+                Console.WriteLine($"Title: {d.GetTitle()}  Duration: {d.GetDuration()} years");
             }
 
-            Console.Write("How many preferences: ");
-            int pref = int.Parse(Console.ReadLine());
+            int pref;
+            while (true)
+            {
+                Console.Write("How many preferences: ");
+                if (int.TryParse(Console.ReadLine(), out pref))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("Enter Valid Number!!");
+                }
+            }
 
             for (int i = 0; i < pref; i++)
             {
-                Console.Write($"Enter Preference {i + 1} : ");
+                Console.Write($"Enter Preference {i + 1}: ");
                 string chooseDegree = Console.ReadLine();
 
                 foreach (DegreeProgramBL d in DegreeProgramDL.programList)
                 {
-                    if (d.title == chooseDegree)
+                    if (d.GetTitle() == chooseDegree)
                     {
-                        stu.prefrences.Add(d);
+                        stu.GetPreferences().Add(d);
                     }
                 }
             }
@@ -55,38 +98,38 @@ namespace UAMS_Database.UI
 
         public static void PrintMeritList(List<StudentBL> sortedList)
         {
+            Console.WriteLine("\n========== Merit List ==========");
             foreach (StudentBL s in sortedList)
             {
-                if (s.RegDegree != null)
+                if (s.GetRegDegree() != null)
                 {
-                    Console.WriteLine($"{s.Name} got admission in {s.RegDegree.title}");
+                    Console.WriteLine($"{s.GetName()} got admission in {s.GetRegDegree().GetTitle()}");
                 }
                 else
                 {
-                    Console.WriteLine($"{s.Name} did not get admission");
+                    Console.WriteLine($"{s.GetName()} did not get admission");
                 }
             }
         }
+
         public static void RegisterSubjects(StudentBL s)
         {
-            if (s != null)   //Student regeistered sub for degree
+            if (s != null)
             {
-                Console.WriteLine("SubCode\tType\tCredit Hours\tFees");
-                foreach (SubjectBL sub in s.RegDegree.subjects)
+                Console.WriteLine("\nSubCode\tType\tCredit Hours\tFees");
+                foreach (SubjectBL sub in s.GetRegDegree().GetSubjects())
                 {
-                    Console.WriteLine($"{sub.SubjCode}\t{sub.SubjType}\t{sub.CRH}\t{sub.SubjFee}");
+                    Console.WriteLine($"{sub.GetSubjCode()}\t{sub.GetSubjType()}\t{sub.GetCRH()}\t{sub.GetSubjFee()}");
                 }
 
                 Console.Write("Enter Subject Code to Register: ");
                 string code = Console.ReadLine();
 
-                SubjectBL selectedSubject = SubjectDL.FindByCode(s.RegDegree.subjects, code);     //checking if the entered subj code matches the available subject code
+                SubjectBL selectedSubject = SubjectDL.FindByCode(s.GetRegDegree().GetSubjects(), code);
 
                 if (selectedSubject != null)
                 {
-
                     bool success = s.StdRegSubj(selectedSubject);
-
                     if (success)
                     {
                         Console.WriteLine("Subject Registered Successfully.");
@@ -101,8 +144,10 @@ namespace UAMS_Database.UI
                     Console.WriteLine("Invalid Subject Code!");
                 }
             }
+            else
+            {
+                Console.WriteLine("Student not found or not assigned to a degree!");
+            }
         }
-
-
     }
 }

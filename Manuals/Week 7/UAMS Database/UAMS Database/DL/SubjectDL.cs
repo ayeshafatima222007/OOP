@@ -12,7 +12,7 @@ namespace UAMS_Database.DL
         public static SubjectBL FindByCode(List<SubjectBL> subjects, string code)
         {
             foreach (SubjectBL s in subjects)
-                if (s.SubjCode == code)
+                if (s.GetSubjCode() == code)
                     return s;
             return null;
         }
