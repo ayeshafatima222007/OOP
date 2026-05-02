@@ -17,7 +17,7 @@ namespace Person_Student_Staff
             this.address = address;
         }
 
-        public string getNmae()
+        public string getName()
         {
             return name;
         }
