@@ -6,7 +6,12 @@ using System.Threading.Tasks;
 
 namespace Project_start.BL
 {
-    internal class SellerBL
-    {
+    internal class SellerBL : UserBL
+    { 
+        public SellerBL(string username, string password) : base (username,password,"Seller")  //user = seller
+        {  
+            //attributes are hanled by parent class-UserBL
+        }
+
     }
 }

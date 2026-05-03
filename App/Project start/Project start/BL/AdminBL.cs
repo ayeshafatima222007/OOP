@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Project_start.BL
 {
-    internal class AdminBL
+    internal class AdminBL : UserBL
     {
+        public AdminBL(string username, string password) : base(username, password, "Admin")  //user = seller
+        {
+            //attributes are hanled by parent class-UserBL
+        }
     }
 }

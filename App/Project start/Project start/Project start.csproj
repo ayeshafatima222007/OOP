@@ -43,6 +43,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BL\AdminBL.cs" />
+    <Compile Include="BL\BuyerBL.cs" />
+    <Compile Include="BL\CartBL.cs" />
+    <Compile Include="BL\DeliveryBL.cs" />
+    <Compile Include="BL\DiscountBL.cs" />
+    <Compile Include="BL\OrderBL.cs" />
+    <Compile Include="BL\PaymentBL.cs" />
+    <Compile Include="BL\ProductBL.cs" />
+    <Compile Include="BL\SellerBL.cs" />
+    <Compile Include="BL\TaxBL.cs" />
+    <Compile Include="BL\UserBL.cs" />
+    <Compile Include="DL\OrderDL.cs" />
+    <Compile Include="DL\ProductDL.cs" />
+    <Compile Include="DL\UserDL.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
