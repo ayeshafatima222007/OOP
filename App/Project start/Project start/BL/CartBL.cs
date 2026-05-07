@@ -16,6 +16,21 @@ namespace Project_start.BL
             //same as productQ.Add(p);
         }
 
+        public Queue<ProductBL> GetCartItems()
+        {
+            return productQ;
+        }
+
+        public bool IsEmpty()
+        {
+            return productQ.Count == 0;
+        }
+
+        public void ClearCart()
+        {
+            productQ.Clear();
+        }
+
         public double GetTotal()
         {
             double total = 0;

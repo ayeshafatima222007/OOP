@@ -15,9 +15,9 @@ namespace Project_start.BL
 
         public PaymentBL(string paymentId, double amount, string paymentMethod)
         {
-            this.paymentId = paymentId;
-            this.amount = amount;
-            this.paymentMethod = paymentMethod;
+            setPaymentId(paymentId);
+            setAmount(amount);
+            setPaymentMethod(paymentMethod);
             this.isPaid = false; // Default to unpaid
         }
  
@@ -26,9 +26,14 @@ namespace Project_start.BL
             return paymentId;
         }
 
-        public void setPaymentId(string paymentId)
+        public bool setPaymentId(string paymentId)
         {
+            if (paymentId.Length == 0)
+            {
+                return false;
+            }
             this.paymentId = paymentId;
+            return true;
         }
 
         public double getAmount()
@@ -36,13 +41,15 @@ namespace Project_start.BL
             return amount;
         }
 
-        public void setAmount(double amount)
+        public bool setAmount(double amount)
         {
             // Simple validation: amount shouldn't be negative
             if (amount >= 0)
             {
                 this.amount = amount;
+                return true;
             }
+            return false;
         }
 
         public string getPaymentMethod()
@@ -50,13 +57,15 @@ namespace Project_start.BL
             return paymentMethod;
         }
 
-        public void setPaymentMethod(string paymentMethod)
+        public bool setPaymentMethod(string paymentMethod)
         {
             // Ensuring only specific values are used
             if (paymentMethod == "Cash" || paymentMethod == "Online")
             {
                 this.paymentMethod = paymentMethod;
+                return true;
             }
+            return false;
         }
 
         public bool getIsPaid()

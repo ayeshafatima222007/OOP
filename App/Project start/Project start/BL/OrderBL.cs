@@ -12,16 +12,16 @@ namespace Project_start.BL
         private string orderId;
         private string status;
         private DateTime orderDate;
-        private BuyerBL buyer;  //aggregation
-        private CartBL cart = new CartBL(); // composition
+        private BuyerBL buyer;                    //aggregation
+        private CartBL cart = new CartBL();      // composition
 
         public OrderBL(string orderId, BuyerBL buyer) //date time is not passes in parameters bcz it is auto set
         {
-            this.orderId = orderId;
-            this.buyer = buyer;        // aggregation 
-            this.cart = new CartBL();  // composition 
+            setOrderId(orderId);
+            setBuyer(buyer);                 // aggregation 
+            this.cart = new CartBL();       // composition 
             this.orderDate = DateTime.Now; // auto set
-            this.status = "Pending";   // default status
+            this.status = "Pending";      // default status
         }
 
         public string getOrderId()
@@ -29,18 +29,28 @@ namespace Project_start.BL
             return orderId;
         }
 
-        public void setOrderId(string orderId)
+        public bool setOrderId(string orderId)
         {
+            if (orderId.Length == 0)
+            {
+                return false;
+            }
             this.orderId = orderId;
+            return true;
         }
         public string getStatus()
         {
             return status;
         }
 
-        public void setStatus(string status)
+        public bool setStatus(string status)
         {
-            this.status = status;
+            if (status == "Pending" || status == "Delivered" || status == "Cancelled")
+            {
+                this.status = status;
+                return true;
+            }
+            return false;
         }
 
         public DateTime getOrderDate()
@@ -48,7 +58,7 @@ namespace Project_start.BL
             return orderDate;
         }
 
-        public void SetOrderDate(DateTime orderDate)
+        public void setOrderDate(DateTime orderDate)
         {
             this.orderDate = orderDate;
         }
@@ -58,17 +68,22 @@ namespace Project_start.BL
             return buyer;
         }
 
-        public void setBuyer(BuyerBL buyer)
+        public bool setBuyer(BuyerBL buyer)
         {
+            if (buyer == null)
+            {
+                return false;
+            }
             this.buyer = buyer;
+            return true;
         }
 
-        public CartBL GetCart()
+        public CartBL getCart()
         {
             return cart;
         }
 
-        public void SetCart(CartBL cart)
+        public void setCart(CartBL cart)
         {
             this.cart = cart;
         }

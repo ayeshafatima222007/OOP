@@ -8,7 +8,7 @@ namespace Project_start.BL
 {
     internal class AdminBL : UserBL
     {
-        public AdminBL(string username, string password) : base(username, password, "Admin")  //user = seller
+        public AdminBL(string username, string password,string phoneNumber) : base(username, password,phoneNumber, "Admin")  //user = seller
         {
             //attributes are hanled by parent class-UserBL
         }

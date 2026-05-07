@@ -12,7 +12,10 @@ namespace Project_start.BL
 
         public TaxBL(double taxPercent)
         {
-            this.taxPercent = taxPercent;
+            if (!setTaxPercent(taxPercent))
+            {
+                this.taxPercent = 0;     // Default to 0 if invalid input provided
+            }
         }
 
         public double getTaxPercent()
@@ -20,23 +23,31 @@ namespace Project_start.BL
             return taxPercent;
         }
 
-        public void setTaxPercent(double taxPercent)
+        public bool setTaxPercent(double taxPercent)
         {
             if (taxPercent >= 0)
             {
                 this.taxPercent = taxPercent;
+                return true;
             }
+            return false;
         }
          
         public double CalculateTax(double total)
         {
-            return (total * taxPercent) / 100;
+            if (total < 0)
+            {
+                return 0;
+            }
+            else 
+            {
+                return (total * taxPercent) / 100;
+            }
         }
  
         public double ApplyTax(double total)
         {
-            double taxAmount = CalculateTax(total);
-            return total + taxAmount;
+            return total + CalculateTax(total);
         }
     }
 }

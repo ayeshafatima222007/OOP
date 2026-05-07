@@ -15,7 +15,7 @@ namespace Project_start.BL
 
         public DeliveryBL(string deliveryMethod, string deliveryAddress = "")
         {
-            this.deliveryMethod = deliveryMethod;
+            setDeliveryMethod(deliveryMethod);
             this.deliveryStatus = "Pending"; 
 
             //  Pickup vs Home Delivery
@@ -26,7 +26,7 @@ namespace Project_start.BL
             }
             else
             {
-                this.deliveryAddress = deliveryAddress;
+                setDeliveryAddress(deliveryAddress);
                 this.deliveryCost = 250.0; // fix rate for Home Delivery
             }
         }
@@ -36,11 +36,11 @@ namespace Project_start.BL
             return deliveryMethod;
         }
 
-        public void setDeliveryMethod(string deliverymethod)
+        public void setDeliveryMethod(string deliveryMethod)
         {
-            this.deliveryMethod = deliverymethod;
+            this.deliveryMethod = deliveryMethod;
 
-            if (deliverymethod == "Pickup")   // Automatically update cost and address
+            if (deliveryMethod == "Pickup")   // Automatically update cost and address
             {
                 this.deliveryCost = 0.0;
                 this.deliveryAddress = "N/A";

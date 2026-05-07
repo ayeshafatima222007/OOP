@@ -17,12 +17,12 @@ namespace Project_start.BL
 
         public ProductBL(string productId, string name, string color, string size, double price, int quantity)
         {
-            this.productId = productId;
-            this.name = name;
-            this.color = color;
-            this.size = size;
-            this.price = price;
-            this.quantity = quantity;
+            setProductId(productId);
+            setName(name);
+            setColor(color);
+            setSize(size);
+            setPrice(price);
+            setQuantity(quantity);
         }
          
         public String getProductId() 
@@ -30,9 +30,14 @@ namespace Project_start.BL
             return productId;
         }
 
-        public void setProductId(String productId) 
+        public bool setProductId(String productId) 
         {
-            this.productId = productId; 
+            if (productId.Length == 0)
+            {
+                return false;
+            }
+            this.productId = productId;
+            return true;
         }
 
         public String getName() 
@@ -40,9 +45,15 @@ namespace Project_start.BL
             return name;
         }
 
-        public void setName(String name) 
+        public bool setName(String name) 
         {
-            this.name = name; 
+            if (name.Length == 0)
+            {
+                return false;
+            }
+
+            this.name = name;
+            return true;
         }
 
         public String getColor() 
@@ -50,9 +61,14 @@ namespace Project_start.BL
             return color; 
         }
 
-        public void setColor(String color) 
+        public bool setColor(String color) 
         {
-            this.color = color; 
+            if (color.Length == 0)
+            {
+                return false;
+            }
+            this.color = color;
+            return true;
         }
 
         public String getSize() 
@@ -60,9 +76,21 @@ namespace Project_start.BL
             return size;
         }
 
-        public void setSize(String size) 
+        public bool setSize(String size) 
         {
+            if (size.Length == 0)
+            {
+                return false;
+            }
+            for (int i = 0; i < size.Length; i++)
+            {
+                if (!((size[i] == 'S' || size[i] == 's') || (size[i] == 'M' || size[i] == 'm') || (size[i] == 'L' || size[i] == 'l')))
+                {
+                    return false;
+                }
+            }
             this.size = size;
+            return true;
         }
          
         public double getPrice() 
@@ -70,9 +98,14 @@ namespace Project_start.BL
             return price;
         }
 
-        public void setPrice(double price) 
+        public bool setPrice(double price) 
         {
-            this.price = price; 
+            if (price < 0)
+            {
+                return false;
+            }
+            this.price = price;
+            return true;
         }
 
         public int getQuantity() 
@@ -80,9 +113,14 @@ namespace Project_start.BL
             return quantity; 
         }
 
-        public void setQuantity(int quantity) 
+        public bool setQuantity(int quantity) 
         {
-            this.quantity = quantity; 
+            if (quantity < 0)        //if (quantity == 0)  means the product is out of stock
+            {
+                return false;
+            }
+            this.quantity = quantity;
+            return true;
         }
 
     }

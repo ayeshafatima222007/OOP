@@ -10,9 +10,9 @@ namespace Project_start.BL
     {
         private string address;    //needed for delivery
 
-        public BuyerBL(string address,string username, string password) : base(username, password, "Buyer")  //user = buyer
+        public BuyerBL(string address,string username, string password,string phoneNumber) : base(username, password,phoneNumber, "Buyer")  //user = buyer
         {
-            this.address = address;
+            setAddress(address);
             //other attributes are hanled by parent class-UserBL
         }
 
@@ -21,10 +21,14 @@ namespace Project_start.BL
             return address;
         }
 
-        public void setAddress(string address)
+        public bool setAddress(string address)
         {
+            if (address.Length == 0)
+            {
+                return false;
+            }
             this.address = address;
-
+            return true;
         }
             
 
