@@ -9,15 +9,17 @@ namespace Project_start.BL
     internal class ProductBL
     {
         private string productId;
+        private string category;
         private string name;
         private string color;
         private string size;
         private double price;
         private int quantity;
 
-        public ProductBL(string productId, string name, string color, string size, double price, int quantity)
+        public ProductBL(string productId,string category, string name, string color, string size, double price, int quantity)
         {
             setProductId(productId);
+            setCategory(category);
             setName(name);
             setColor(color);
             setSize(size);
@@ -38,6 +40,22 @@ namespace Project_start.BL
             }
             this.productId = productId;
             return true;
+        }
+
+        public string getCategory()
+        {
+            return category;
+        }
+
+        public bool setCategory(string category)
+        {
+            if (category == "Casual" || category == "Formal" ||
+                category == "Embroidered" || category == "Sports")
+            {
+                this.category = category;
+                return true;
+            }
+            return false;
         }
 
         public String getName() 

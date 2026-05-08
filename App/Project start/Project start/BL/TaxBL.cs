@@ -9,18 +9,25 @@ namespace Project_start.BL
     internal class TaxBL
     {
         private double taxPercent;
-
-        public TaxBL(double taxPercent)
+         
+        public double getTaxPercent(string category)           //applying tax based on category
         {
-            if (!setTaxPercent(taxPercent))
+            if (category == "Casual" || category == "Sports")
             {
-                this.taxPercent = 0;     // Default to 0 if invalid input provided
+                return 5;
             }
-        }
-
-        public double getTaxPercent()
-        {
-            return taxPercent;
+            else if (category == "Formal")
+            {
+                return 10;
+            }
+            else if (category == "Embroidered")
+            {
+                return 15;
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public bool setTaxPercent(double taxPercent)
@@ -32,22 +39,18 @@ namespace Project_start.BL
             }
             return false;
         }
-         
-        public double CalculateTax(double total)
+
+        public double CalculateTax(double price, string category)
         {
-            if (total < 0)
-            {
+            if (price < 0)
                 return 0;
-            }
-            else 
-            {
-                return (total * taxPercent) / 100;
-            }
+            return price * getTaxPercent(category) / 100;
         }
- 
-        public double ApplyTax(double total)
+
+        public double ApplyTax(double price, string category)
         {
-            return total + CalculateTax(total);
+            return price + CalculateTax(price, category);
         }
+         
     }
 }

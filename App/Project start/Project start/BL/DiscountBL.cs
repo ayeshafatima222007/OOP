@@ -14,10 +14,48 @@ namespace Project_start.BL
 
         public DiscountBL(string discountCode, double discountPercent,bool isActive)
         {
-            this.discountCode = discountCode;
-            this.discountPercent = discountPercent;
+            setDiscountCode(discountCode);
+            setDiscountPercent(discountPercent);
             this.isActive = isActive;
         }
+
+        public string getDiscountCode()
+        {
+            return discountCode;
+        }
+
+        public bool setDiscountCode(string discountCode)
+        {
+            if (discountCode.Length == 0)
+            {
+                return false;
+            }
+            this.discountCode = discountCode;
+            return true;
+        }
+
+        public double getDiscountPercent()
+        {
+            return discountPercent;
+        }
+
+        public bool setDiscountPercent(double discountPercent)
+        {
+            if (discountPercent >= 5 && discountPercent <= 50)     // 5-50% discount
+            {
+                this.discountPercent = discountPercent;
+                return true;
+            }
+
+            // If invalid,don't update the value
+            return false;
+        }
+
+        public bool getIsActive()
+        {
+            return isActive;
+        }
+
 
         public bool ValidateCode(string enteredCode)     //discount code enter by seller is handled by DiscountDL class
         {
