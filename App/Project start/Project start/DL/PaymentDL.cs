@@ -10,23 +10,26 @@ namespace Project_start.DL
     internal class PaymentDL
     {
         public static List<PaymentBL> paymentList = new List<PaymentBL>();
-
         public static void AddPayment(PaymentBL payment)
         {
             paymentList.Add(payment);
         }
 
-        public static List<PaymentBL> FindPayment(string username)
+        public static List<PaymentBL> GetAllPayments()
         {
-            List<OrderBL> result = new List<OrderBL>();
+            return paymentList;
+        }
+         
+        public static PaymentBL FindPayment(string paymentId)
+        {
             foreach (PaymentBL p in paymentList)
             {
-                if (o.getBuyer().getUsername() == username)
+                if (p.getPaymentId() == paymentId)
                 {
-                    result.Add(p);
+                    return p;
                 }
             }
-            return result;
+            return null;
         }
     }
 }
