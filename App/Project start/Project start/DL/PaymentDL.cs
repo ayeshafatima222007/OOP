@@ -7,31 +7,26 @@ using System.Threading.Tasks;
 
 namespace Project_start.DL
 {
-    internal class OrderDL
+    internal class PaymentDL
     {
-        public static List<OrderBL> orderList = new List<OrderBL>();
+        public static List<PaymentBL> paymentList = new List<PaymentBL>();
 
-        public static void AddOrder(OrderBL ord)
+        public static void AddPayment(PaymentBL payment)
         {
-            orderList.Add(ord);
+            paymentList.Add(payment);
         }
 
-        public static List<OrderBL> FindOrdersByBuyer(string username)
+        public static List<PaymentBL> FindPayment(string username)
         {
             List<OrderBL> result = new List<OrderBL>();
-            foreach (OrderBL o in orderList)
+            foreach (PaymentBL p in paymentList)
             {
                 if (o.getBuyer().getUsername() == username)
                 {
-                    result.Add(o);
+                    result.Add(p);
                 }
             }
             return result;
-        }
-
-        public static List<OrderBL> getAllOrders()
-        {
-            return orderList;
         }
     }
 }

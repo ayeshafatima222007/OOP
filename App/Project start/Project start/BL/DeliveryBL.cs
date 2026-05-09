@@ -36,19 +36,14 @@ namespace Project_start.BL
             return deliveryMethod;
         }
 
-        public void setDeliveryMethod(string deliveryMethod)
+        public bool setDeliveryMethod(string deliveryMethod)
         {
-            this.deliveryMethod = deliveryMethod;
-
-            if (deliveryMethod == "Pickup")   // Automatically update cost and address
+            if (deliveryMethod == "Pickup" || deliveryMethod == "Home Delivery")
             {
-                this.deliveryCost = 0.0;
-                this.deliveryAddress = "N/A";
+                this.deliveryMethod = deliveryMethod;
+                return true;
             }
-            else
-            {
-                this.deliveryCost = 250.0; // Standard charge
-            }
+            return false;
         }
 
         public string getDeliveryAddress()
@@ -56,13 +51,14 @@ namespace Project_start.BL
             return deliveryAddress;
         }
 
-        public void setDeliveryAddress(string address)
+        public bool setDeliveryAddress(string address)
         {
-            // Only allow setting an address if it's not a Pickup
-            if (this.deliveryMethod == "Home Delivery")
+            if (deliveryMethod == "Home Delivery" && address.Length > 0)
             {
                 this.deliveryAddress = address;
+                return true;
             }
+            return false;
         }
 
         public string getDeliveryStatus()
@@ -70,9 +66,14 @@ namespace Project_start.BL
             return deliveryStatus;
         }
 
-        public void setDeliveryStatus(string status)
+        public bool setDeliveryStatus(string status)
         {
-            this.deliveryStatus = status;
+            if (status == "Pending" || status == "Delivered" || status == "Cancelled")
+            {
+                this.deliveryStatus = status;
+                return true;
+            }
+            return false;
         }
         public double getDeliveryCost()
         {

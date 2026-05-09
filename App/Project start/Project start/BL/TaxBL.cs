@@ -7,9 +7,7 @@ using System.Threading.Tasks;
 namespace Project_start.BL
 {
     internal class TaxBL
-    {
-        private double taxPercent;
-         
+    { 
         public double getTaxPercent(string category)           //applying tax based on category
         {
             if (category == "Casual" || category == "Sports")
@@ -28,16 +26,6 @@ namespace Project_start.BL
             {
                 return 0;
             }
-        }
-
-        public bool setTaxPercent(double taxPercent)
-        {
-            if (taxPercent >= 0)
-            {
-                this.taxPercent = taxPercent;
-                return true;
-            }
-            return false;
         }
 
         public double CalculateTax(double price, string category)

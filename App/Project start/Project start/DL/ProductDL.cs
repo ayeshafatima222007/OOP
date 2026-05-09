@@ -28,24 +28,22 @@ namespace Project_start.DL
             return null;      //not found
         }
 
-        public static void ViewAllProducts()
+        public static List<ProductBL> FindByCategory(string category)       //easy for buyer
         {
-            if (productList.Count == 0)
-            {
-                Console.WriteLine("No products available!");
-                return;
-            }
-
-            Console.WriteLine("================================================================================");
-            Console.WriteLine($"{"ID",-10}{"Name",-20}{"Color",-12}{"Size",-8}{"Price",-12}{"Quantity",-10}");
-            Console.WriteLine("================================================================================");
-
+            List<ProductBL> result = new List<ProductBL>();
             foreach (ProductBL p in productList)
             {
-                Console.WriteLine($"{p.getProductId(),-10}{p.getName(),-20}{p.getColor(),-12}{p.getSize(),-8}{p.getPrice(),-12}{p.getQuantity(),-10}");
+                if (p.getCategory() == category)
+                {
+                    result.Add(p);
+                }
             }
+            return result;
+        }
 
-            Console.WriteLine("================================================================================");
+        public static List<ProductBL> getAllProducts()
+        {
+            return productList;
         }
 
         public static void DelProduct(string ID)

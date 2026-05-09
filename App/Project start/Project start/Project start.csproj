@@ -54,7 +54,9 @@
     <Compile Include="BL\SellerBL.cs" />
     <Compile Include="BL\TaxBL.cs" />
     <Compile Include="BL\UserBL.cs" />
+    <Compile Include="DL\DiscountDL.cs" />
     <Compile Include="DL\OrderDL.cs" />
+    <Compile Include="DL\PaymentDL.cs" />
     <Compile Include="DL\ProductDL.cs" />
     <Compile Include="DL\UserDL.cs" />
     <Compile Include="Program.cs" />
