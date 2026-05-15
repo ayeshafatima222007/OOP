@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace Project_start.BL
 {
-    internal abstract class UserBL            //Abstract class
+    internal abstract class UserBL : IUser            //Abstract class
     {
         protected string username;
         protected string password;
