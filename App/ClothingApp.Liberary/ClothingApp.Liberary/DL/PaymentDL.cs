@@ -11,6 +11,17 @@ namespace ClothingApp.Library.DL
 {
     public class PaymentDL
     {
+        // --- GetPaymentCount ---
+        public static int GetPaymentCount()     //for payment id 
+        {
+            SqlConnection conn = Configuration.GetConnection();
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Payments", conn);
+            int count = (int)cmd.ExecuteScalar();
+            conn.Close();
+            return count;
+        }
+
         // --- AddPayment ---
         public static bool AddPayment(PaymentBL payment)
         {

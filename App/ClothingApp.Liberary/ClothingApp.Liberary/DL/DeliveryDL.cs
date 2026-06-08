@@ -11,6 +11,18 @@ namespace ClothingApp.Library.DL
 {
     public class DeliveryDL
     {
+        // --- GetDeliveryCount ---
+        public static int GetDeliveryCount()     //For delivery Id
+        {
+            SqlConnection conn = Configuration.GetConnection();
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Deliveries", conn);
+            int count = (int)cmd.ExecuteScalar();
+            conn.Close();
+            return count;
+        }
+
+
         // --- AddDelivery ---
         public static bool AddDelivery(DeliveryBL delivery)
         {

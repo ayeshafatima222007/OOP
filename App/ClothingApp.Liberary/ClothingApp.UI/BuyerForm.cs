@@ -19,6 +19,7 @@ namespace ClothingApp.UI
         private string currentOrderId = null;
         private double cartTotal = 0;
         private double discountedTotal = 0;
+        private double savedTotal = 0;
 
         public BuyerForm(BuyerBL buyer)
         {
@@ -63,6 +64,17 @@ namespace ClothingApp.UI
 
         }
 
+
+        private void lblQty_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtQty_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
         private void btnSearchProduct_Click(object sender, EventArgs e)
         {
             string search = txtBrowseSearch.Text.Trim();
@@ -84,8 +96,8 @@ namespace ClothingApp.UI
                     prod.getName(),
                     prod.getColor(),
                     prod.getSize(),
-                    prod.getPrice(),
-                    prod.getQuantity()
+                    prod.getPrice()
+                  
                 );
             }
             else
@@ -99,8 +111,7 @@ namespace ClothingApp.UI
                         p.getName(),
                         p.getColor(),
                         p.getSize(),
-                        p.getPrice(),
-                        p.getQuantity()
+                        p.getPrice() 
                     );
                 }
                 if (byCategory.Count == 0)
@@ -127,9 +138,16 @@ namespace ClothingApp.UI
 
         private void btnAddToCart_Click(object sender, EventArgs e)
         {
+
             if (dgvBrowse.CurrentRow == null)
             {
                 MessageBox.Show("Select a product first.");
+                return;
+            }
+
+            if (!int.TryParse(txtQty.Text.Trim(), out int qty) || qty <= 0)
+            {
+                MessageBox.Show("Enter a valid quantity.");
                 return;
             }
 
@@ -140,12 +158,12 @@ namespace ClothingApp.UI
             string color = row.Cells["Color"].Value?.ToString();
             string size = row.Cells["Size"].Value?.ToString();
             double price = Convert.ToDouble(row.Cells["Price"].Value);
-            int qty = Convert.ToInt32(row.Cells["Quantity"].Value);
 
             ProductBL product = new ProductBL(id, category, name, color, size, price, qty);
             loggedInBuyer.getCart().AddToCart(product);
 
             MessageBox.Show(name + " added to cart.");
+            txtQty.Text = "";
             RefreshCartView();
         }
 
@@ -162,7 +180,7 @@ namespace ClothingApp.UI
             dgvBrowse.Columns.Add("Color", "Color");
             dgvBrowse.Columns.Add("Size", "Size");
             dgvBrowse.Columns.Add("Price", "Price");
-            dgvBrowse.Columns.Add("Quantity", "Quantity");
+           
 
             foreach (ProductBL p in products)
             {
@@ -172,8 +190,8 @@ namespace ClothingApp.UI
                     p.getName(),
                     p.getColor(),
                     p.getSize(),
-                    p.getPrice(),
-                    p.getQuantity()
+                    p.getPrice()
+                 
                 );
             }
         }
@@ -285,20 +303,23 @@ namespace ClothingApp.UI
             }
 
             // auto-generate order ID
-            currentOrderId = "ORD_" + DateTime.Now.Ticks;
+            currentOrderId = "Ord-" + (OrderDL.GetOrderCount() + 1);
 
             OrderBL order = new OrderBL(currentOrderId, loggedInBuyer);
             bool result = OrderDL.AddOrder(order);
 
             if (result)
             {
+                savedTotal = discountedTotal > 0 ? discountedTotal : cartTotal;  // save before clear
+
                 MessageBox.Show("Order placed! Order ID: " + currentOrderId);
 
-                // auto-fill checkout tab
                 txtCurrentOrderId.Text = currentOrderId;
-                txtCheckoutTotal.Text = discountedTotal.ToString("F2");
+                txtCheckoutTotal.Text = savedTotal.ToString("F2");
+                txtPaymentId.Text = "Pay-" + (PaymentDL.GetPaymentCount() + 1);
+                txtDeliveryId.Text = "D" + (1000 + DeliveryDL.GetDeliveryCount() + 1);
+                txtDeliveryCost.Text = "150";
 
-                // clear cart
                 loggedInBuyer.getCart().ClearCart();
                 RefreshCartView();
                 LoadOrders();
@@ -319,6 +340,7 @@ namespace ClothingApp.UI
             dgvCart.Columns.Add("Name", "Name");
             dgvCart.Columns.Add("Category", "Category");
             dgvCart.Columns.Add("Size", "Size");
+            dgvCart.Columns.Add("Quantity", "Quantity");
             dgvCart.Columns.Add("Price", "Price");
 
             cartTotal = 0;
@@ -333,6 +355,7 @@ namespace ClothingApp.UI
                     p.getName(),
                     p.getCategory(),
                     p.getSize(),
+                    p.getQuantity(),
                     p.getPrice()
                 );
                 cartTotal += p.getPrice();
@@ -515,19 +538,71 @@ namespace ClothingApp.UI
 
         }
 
+        private void btnLoadOrder_Click(object sender, EventArgs e)
+        {
+            string orderId = txtCurrentOrderId.Text.Trim();
+
+            if (string.IsNullOrWhiteSpace(orderId))
+            {
+                MessageBox.Show("Enter Order ID.");
+                return;
+            }
+
+            OrderBL ord = OrderDL.FindOrder(orderId);
+
+            if (ord == null || ord.getBuyer().getUsername() != loggedInBuyer.getUsername())
+            {
+                MessageBox.Show("Order not found.");
+                return;
+            }
+
+            if (PaymentDL.FindByOrder(orderId) != null)
+            {
+                MessageBox.Show("This order is already checked out.");
+                return;
+            }
+
+            currentOrderId = orderId;
+            txtPaymentId.Text = "Pay-" + (PaymentDL.GetPaymentCount() + 1);
+            txtDeliveryId.Text = "D" + (1000 + DeliveryDL.GetDeliveryCount() + 1);
+            txtDeliveryCost.Text = "150";
+            txtCheckoutTotal.Text = savedTotal > 0 ? savedTotal.ToString("F2") : "0.00";
+            MessageBox.Show("Order loaded. Fill remaining fields and confirm.");
+        }
+
+
+        private void btnClearCheckout_Click(object sender, EventArgs e)
+        {
+
+            txtCurrentOrderId.Text = "";
+            txtCheckoutTotal.Text = "";
+            txtPaymentId.Text = "";
+            txtDeliveryId.Text = "";
+            txtDeliveryAddress.Text = "";
+            txtDeliveryCost.Text = "";
+            cmbPaymentMethod.SelectedIndex = -1;
+            cmbDeliveryMethod.SelectedIndex = -1;
+            currentOrderId = null;
+        }
+
+
         private void btnConfirmCheckout_Click(object sender, EventArgs e)
         {
             string orderId = txtCurrentOrderId.Text.Trim();
-            string paymentId = txtPaymentId.Text.Trim();
             string paymentMethod = cmbPaymentMethod.SelectedItem?.ToString();
-            string deliveryId = txtDeliveryId.Text.Trim();
             string deliveryMethod = cmbDeliveryMethod.SelectedItem?.ToString();
             string deliveryAddress = txtDeliveryAddress.Text.Trim();
             string deliveryCostText = txtDeliveryCost.Text.Trim();
             string totalText = txtCheckoutTotal.Text.Trim();
+            string paymentId = txtPaymentId.Text.Trim();
+            string deliveryId = txtDeliveryId.Text.Trim();
 
-            if (string.IsNullOrWhiteSpace(orderId) || string.IsNullOrWhiteSpace(paymentId) ||
-                string.IsNullOrWhiteSpace(paymentMethod) || string.IsNullOrWhiteSpace(deliveryId) ||
+            if (string.IsNullOrWhiteSpace(paymentId) || string.IsNullOrWhiteSpace(deliveryId))
+            {
+                MessageBox.Show("Load order first before confirming checkout.");
+                return;
+            }
+            if (string.IsNullOrWhiteSpace(orderId) || string.IsNullOrWhiteSpace(paymentMethod) ||  
                 string.IsNullOrWhiteSpace(deliveryMethod) || string.IsNullOrWhiteSpace(deliveryAddress) ||
                 string.IsNullOrWhiteSpace(deliveryCostText) || string.IsNullOrWhiteSpace(totalText))
             {
@@ -541,11 +616,9 @@ namespace ClothingApp.UI
                 return;
             }
 
-            if (!double.TryParse(deliveryCostText, out double deliveryCost) || deliveryCost < 0)
-            {
-                MessageBox.Show("Invalid delivery cost.");
-                return;
-            }
+
+            //fixed delivery cost
+            double deliveryCost = 150;
 
             // check order exists
             if (OrderDL.FindOrder(orderId) == null)
@@ -553,7 +626,7 @@ namespace ClothingApp.UI
                 MessageBox.Show("Order not found. Place an order first.");
                 return;
             }
-
+ 
             // add payment
             PaymentBL payment = new PaymentBL(paymentId, orderId, amount, paymentMethod);
             bool payResult = PaymentDL.AddPayment(payment);
@@ -574,7 +647,7 @@ namespace ClothingApp.UI
                 return;
             }
 
-            MessageBox.Show("Checkout complete! Payment and Delivery recorded.");
+            MessageBox.Show("Checkout complete!\nPayment ID: " + paymentId + "\nDelivery ID: " + deliveryId);
 
             // clear checkout fields
             txtCurrentOrderId.Text = "";
@@ -719,5 +792,7 @@ namespace ClothingApp.UI
         {
 
         }
+
+       
     }
 }

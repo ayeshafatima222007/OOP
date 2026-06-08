@@ -11,6 +11,8 @@ namespace ClothingApp.Library.DL
 {
     public class DiscountDL
     {
+        
+
         // --- AddDiscount ---
         public static bool AddDiscount(DiscountBL d)
         {

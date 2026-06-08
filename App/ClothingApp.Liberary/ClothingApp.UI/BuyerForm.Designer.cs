@@ -79,6 +79,9 @@
             this.txtCurrentOrderId = new System.Windows.Forms.TextBox();
             this.lblCurrentOrderId = new System.Windows.Forms.Label();
             this.tabProfile = new System.Windows.Forms.TabPage();
+            this.btnBuyerExitNo = new System.Windows.Forms.Button();
+            this.btnBuyerExitYes = new System.Windows.Forms.Button();
+            this.lblExit = new System.Windows.Forms.Label();
             this.btnUpdateProfile = new System.Windows.Forms.Button();
             this.txtAddress = new System.Windows.Forms.TextBox();
             this.lblAddress = new System.Windows.Forms.Label();
@@ -90,9 +93,10 @@
             this.lblPhoneNumber = new System.Windows.Forms.Label();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.lblUsername = new System.Windows.Forms.Label();
-            this.lblExit = new System.Windows.Forms.Label();
-            this.btnBuyerExitYes = new System.Windows.Forms.Button();
-            this.btnBuyerExitNo = new System.Windows.Forms.Button();
+            this.lblQty = new System.Windows.Forms.Label();
+            this.txtQty = new System.Windows.Forms.TextBox();
+            this.btnLoadOrder = new System.Windows.Forms.Button();
+            this.btnClearCheckout = new System.Windows.Forms.Button();
             this.pnlHeaderPanel.SuspendLayout();
             this.tabBuyer.SuspendLayout();
             this.TabBrowseProduct.SuspendLayout();
@@ -150,6 +154,8 @@
             // 
             this.TabBrowseProduct.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("TabBrowseProduct.BackgroundImage")));
             this.TabBrowseProduct.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.TabBrowseProduct.Controls.Add(this.txtQty);
+            this.TabBrowseProduct.Controls.Add(this.lblQty);
             this.TabBrowseProduct.Controls.Add(this.btnAddToCart);
             this.TabBrowseProduct.Controls.Add(this.pnlBrowseSidebar);
             this.TabBrowseProduct.Controls.Add(this.txtBrowseSearch);
@@ -168,7 +174,7 @@
             // 
             this.btnAddToCart.BackColor = System.Drawing.SystemColors.Info;
             this.btnAddToCart.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAddToCart.Location = new System.Drawing.Point(436, 432);
+            this.btnAddToCart.Location = new System.Drawing.Point(476, 462);
             this.btnAddToCart.Name = "btnAddToCart";
             this.btnAddToCart.Size = new System.Drawing.Size(298, 59);
             this.btnAddToCart.TabIndex = 4;
@@ -216,7 +222,7 @@
             // txtBrowseSearch
             // 
             this.txtBrowseSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtBrowseSearch.Location = new System.Drawing.Point(534, 373);
+            this.txtBrowseSearch.Location = new System.Drawing.Point(534, 351);
             this.txtBrowseSearch.Name = "txtBrowseSearch";
             this.txtBrowseSearch.Size = new System.Drawing.Size(257, 30);
             this.txtBrowseSearch.TabIndex = 2;
@@ -226,7 +232,7 @@
             // 
             this.lblBrowseSearch.AutoSize = true;
             this.lblBrowseSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBrowseSearch.Location = new System.Drawing.Point(383, 378);
+            this.lblBrowseSearch.Location = new System.Drawing.Point(383, 356);
             this.lblBrowseSearch.Name = "lblBrowseSearch";
             this.lblBrowseSearch.Size = new System.Drawing.Size(145, 25);
             this.lblBrowseSearch.TabIndex = 1;
@@ -488,6 +494,8 @@
             // 
             this.tabCheckOut.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("tabCheckOut.BackgroundImage")));
             this.tabCheckOut.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.tabCheckOut.Controls.Add(this.btnClearCheckout);
+            this.tabCheckOut.Controls.Add(this.btnLoadOrder);
             this.tabCheckOut.Controls.Add(this.btnConfirmCheckout);
             this.tabCheckOut.Controls.Add(this.lblDeliveryCost);
             this.tabCheckOut.Controls.Add(this.txtDeliveryCost);
@@ -516,7 +524,9 @@
             // btnConfirmCheckout
             // 
             this.btnConfirmCheckout.BackColor = System.Drawing.SystemColors.Info;
-            this.btnConfirmCheckout.Location = new System.Drawing.Point(364, 424);
+            this.btnConfirmCheckout.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnConfirmCheckout.BackgroundImage")));
+            this.btnConfirmCheckout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnConfirmCheckout.Location = new System.Drawing.Point(562, 444);
             this.btnConfirmCheckout.Name = "btnConfirmCheckout";
             this.btnConfirmCheckout.Size = new System.Drawing.Size(346, 56);
             this.btnConfirmCheckout.TabIndex = 16;
@@ -540,6 +550,7 @@
             this.txtDeliveryCost.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDeliveryCost.Location = new System.Drawing.Point(196, 319);
             this.txtDeliveryCost.Name = "txtDeliveryCost";
+            this.txtDeliveryCost.ReadOnly = true;
             this.txtDeliveryCost.Size = new System.Drawing.Size(244, 30);
             this.txtDeliveryCost.TabIndex = 14;
             this.txtDeliveryCost.TextChanged += new System.EventHandler(this.txtDeliveryCost_TextChanged);
@@ -577,6 +588,7 @@
             // 
             // cmbDeliveryMethod
             // 
+            this.cmbDeliveryMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDeliveryMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbDeliveryMethod.FormattingEnabled = true;
             this.cmbDeliveryMethod.Items.AddRange(new object[] {
@@ -604,6 +616,7 @@
             this.txtDeliveryId.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtDeliveryId.Location = new System.Drawing.Point(196, 166);
             this.txtDeliveryId.Name = "txtDeliveryId";
+            this.txtDeliveryId.ReadOnly = true;
             this.txtDeliveryId.Size = new System.Drawing.Size(244, 30);
             this.txtDeliveryId.TabIndex = 8;
             this.txtDeliveryId.TextChanged += new System.EventHandler(this.txtDeliveryId_TextChanged);
@@ -621,6 +634,7 @@
             // 
             // cmbPaymentMethod
             // 
+            this.cmbPaymentMethod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPaymentMethod.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmbPaymentMethod.FormattingEnabled = true;
             this.cmbPaymentMethod.Items.AddRange(new object[] {
@@ -649,6 +663,7 @@
             this.txtPaymentId.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtPaymentId.Location = new System.Drawing.Point(196, 96);
             this.txtPaymentId.Name = "txtPaymentId";
+            this.txtPaymentId.ReadOnly = true;
             this.txtPaymentId.Size = new System.Drawing.Size(244, 30);
             this.txtPaymentId.TabIndex = 4;
             this.txtPaymentId.TextChanged += new System.EventHandler(this.txtPaymentId_TextChanged);
@@ -658,6 +673,7 @@
             this.txtCheckoutTotal.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtCheckoutTotal.Location = new System.Drawing.Point(725, 37);
             this.txtCheckoutTotal.Name = "txtCheckoutTotal";
+            this.txtCheckoutTotal.ReadOnly = true;
             this.txtCheckoutTotal.Size = new System.Drawing.Size(244, 30);
             this.txtCheckoutTotal.TabIndex = 3;
             this.txtCheckoutTotal.TextChanged += new System.EventHandler(this.txtCheckoutTotal_TextChanged);
@@ -718,6 +734,39 @@
             this.tabProfile.Text = "Profile";
             this.tabProfile.UseVisualStyleBackColor = true;
             this.tabProfile.Click += new System.EventHandler(this.tabProfile_Click);
+            // 
+            // btnBuyerExitNo
+            // 
+            this.btnBuyerExitNo.BackColor = System.Drawing.Color.Red;
+            this.btnBuyerExitNo.Location = new System.Drawing.Point(617, 436);
+            this.btnBuyerExitNo.Name = "btnBuyerExitNo";
+            this.btnBuyerExitNo.Size = new System.Drawing.Size(101, 42);
+            this.btnBuyerExitNo.TabIndex = 13;
+            this.btnBuyerExitNo.Text = "No";
+            this.btnBuyerExitNo.UseVisualStyleBackColor = false;
+            this.btnBuyerExitNo.Click += new System.EventHandler(this.btnBuyerExitNo_Click);
+            // 
+            // btnBuyerExitYes
+            // 
+            this.btnBuyerExitYes.BackColor = System.Drawing.Color.RosyBrown;
+            this.btnBuyerExitYes.Location = new System.Drawing.Point(495, 434);
+            this.btnBuyerExitYes.Name = "btnBuyerExitYes";
+            this.btnBuyerExitYes.Size = new System.Drawing.Size(101, 42);
+            this.btnBuyerExitYes.TabIndex = 12;
+            this.btnBuyerExitYes.Text = "Yes";
+            this.btnBuyerExitYes.UseVisualStyleBackColor = false;
+            this.btnBuyerExitYes.Click += new System.EventHandler(this.btnBuyerExitYes_Click);
+            // 
+            // lblExit
+            // 
+            this.lblExit.AutoSize = true;
+            this.lblExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblExit.Location = new System.Drawing.Point(257, 436);
+            this.lblExit.Name = "lblExit";
+            this.lblExit.Size = new System.Drawing.Size(213, 29);
+            this.lblExit.TabIndex = 11;
+            this.lblExit.Text = "Do you want to exit";
+            this.lblExit.Click += new System.EventHandler(this.lblExit_Click);
             // 
             // btnUpdateProfile
             // 
@@ -831,38 +880,49 @@
             this.lblUsername.Text = "Username";
             this.lblUsername.Click += new System.EventHandler(this.lblUsername_Click);
             // 
-            // lblExit
+            // lblQty
             // 
-            this.lblExit.AutoSize = true;
-            this.lblExit.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblExit.Location = new System.Drawing.Point(257, 436);
-            this.lblExit.Name = "lblExit";
-            this.lblExit.Size = new System.Drawing.Size(213, 29);
-            this.lblExit.TabIndex = 11;
-            this.lblExit.Text = "Do you want to exit";
-            this.lblExit.Click += new System.EventHandler(this.lblExit_Click);
+            this.lblQty.AutoSize = true;
+            this.lblQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblQty.Location = new System.Drawing.Point(431, 411);
+            this.lblQty.Name = "lblQty";
+            this.lblQty.Size = new System.Drawing.Size(85, 25);
+            this.lblQty.TabIndex = 5;
+            this.lblQty.Text = "Quantity";
+            this.lblQty.Click += new System.EventHandler(this.lblQty_Click);
             // 
-            // btnBuyerExitYes
+            // txtQty
             // 
-            this.btnBuyerExitYes.BackColor = System.Drawing.Color.RosyBrown;
-            this.btnBuyerExitYes.Location = new System.Drawing.Point(495, 434);
-            this.btnBuyerExitYes.Name = "btnBuyerExitYes";
-            this.btnBuyerExitYes.Size = new System.Drawing.Size(101, 42);
-            this.btnBuyerExitYes.TabIndex = 12;
-            this.btnBuyerExitYes.Text = "Yes";
-            this.btnBuyerExitYes.UseVisualStyleBackColor = false;
-            this.btnBuyerExitYes.Click += new System.EventHandler(this.btnBuyerExitYes_Click);
+            this.txtQty.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtQty.Location = new System.Drawing.Point(534, 411);
+            this.txtQty.Name = "txtQty";
+            this.txtQty.Size = new System.Drawing.Size(257, 30);
+            this.txtQty.TabIndex = 6;
+            this.txtQty.TextChanged += new System.EventHandler(this.txtQty_TextChanged);
             // 
-            // btnBuyerExitNo
+            // btnLoadOrder
             // 
-            this.btnBuyerExitNo.BackColor = System.Drawing.Color.Red;
-            this.btnBuyerExitNo.Location = new System.Drawing.Point(617, 436);
-            this.btnBuyerExitNo.Name = "btnBuyerExitNo";
-            this.btnBuyerExitNo.Size = new System.Drawing.Size(101, 42);
-            this.btnBuyerExitNo.TabIndex = 13;
-            this.btnBuyerExitNo.Text = "No";
-            this.btnBuyerExitNo.UseVisualStyleBackColor = false;
-            this.btnBuyerExitNo.Click += new System.EventHandler(this.btnBuyerExitNo_Click);
+            this.btnLoadOrder.BackColor = System.Drawing.Color.RosyBrown;
+            this.btnLoadOrder.Location = new System.Drawing.Point(446, 32);
+            this.btnLoadOrder.Name = "btnLoadOrder";
+            this.btnLoadOrder.Size = new System.Drawing.Size(83, 42);
+            this.btnLoadOrder.TabIndex = 17;
+            this.btnLoadOrder.Text = "Load";
+            this.btnLoadOrder.UseVisualStyleBackColor = false;
+            this.btnLoadOrder.Click += new System.EventHandler(this.btnLoadOrder_Click);
+            // 
+            // btnClearCheckout
+            // 
+            this.btnClearCheckout.BackColor = System.Drawing.SystemColors.Info;
+            this.btnClearCheckout.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btnClearCheckout.BackgroundImage")));
+            this.btnClearCheckout.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btnClearCheckout.Location = new System.Drawing.Point(172, 444);
+            this.btnClearCheckout.Name = "btnClearCheckout";
+            this.btnClearCheckout.Size = new System.Drawing.Size(346, 56);
+            this.btnClearCheckout.TabIndex = 18;
+            this.btnClearCheckout.Text = "Clear Checkout";
+            this.btnClearCheckout.UseVisualStyleBackColor = false;
+            this.btnClearCheckout.Click += new System.EventHandler(this.btnClearCheckout_Click);
             // 
             // BuyerForm
             // 
@@ -970,5 +1030,9 @@
         private System.Windows.Forms.Button btnBuyerExitNo;
         private System.Windows.Forms.Button btnBuyerExitYes;
         private System.Windows.Forms.Label lblExit;
+        private System.Windows.Forms.TextBox txtQty;
+        private System.Windows.Forms.Label lblQty;
+        private System.Windows.Forms.Button btnLoadOrder;
+        private System.Windows.Forms.Button btnClearCheckout;
     }
 }

@@ -167,12 +167,14 @@ namespace ClothingApp.Library.Utility
         // --- Size ---
         public static bool IsValidSize(string size)
         {
+
             if (IsNullOrEmpty(size))
             {
                 return false;
             }
             string s = size.ToUpper();
-            return s == "S" || s == "M" || s == "L";
+            return s == "S" || s == "M" || s == "L" ||
+                   s == "SMALL" || s == "MEDIUM" || s == "LARGE";
         }
 
         // --- Price ---

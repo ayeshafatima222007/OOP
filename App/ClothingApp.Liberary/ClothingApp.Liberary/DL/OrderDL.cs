@@ -12,6 +12,17 @@ namespace ClothingApp.Library.DL
 {
     public class OrderDL
     {
+        // --- GetOrderCount ---
+        public static int GetOrderCount()     //use for order Id 
+        {
+            SqlConnection conn = Configuration.GetConnection();
+            conn.Open();
+            SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Orders", conn);
+            int count = (int)cmd.ExecuteScalar();
+            conn.Close();
+            return count;
+        }
+
         // --- AddOrder ---
         public static bool AddOrder(OrderBL ord)
         {

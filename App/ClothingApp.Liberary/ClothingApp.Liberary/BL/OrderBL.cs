@@ -23,6 +23,17 @@ namespace ClothingApp.Library.BL
             this.status = "Pending";
         }
 
+        public double getTotalPrice()
+        {
+            double total = 0;
+            // Get the items out of this order's specific cart
+            foreach (var product in cart.GetCartItems())
+            {
+                // Assuming your ProductBL has getPrice() or handles quantity * price
+                total += product.getPrice();
+            }
+            return total;
+        }
 
         public string getOrderId()           //--- orderId ---
         {
