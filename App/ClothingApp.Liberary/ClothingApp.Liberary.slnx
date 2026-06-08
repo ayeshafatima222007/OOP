@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="ClothingApp.Liberary/ClothingApp.Library.csproj" Id="1e7b1b94-347f-4b7b-acde-65452825d4e7" />
+  <Project Path="ClothingApp.UI/ClothingApp.UI.csproj" Id="59140abd-00b2-45c3-a4be-7c404b32862f" />
+</Solution>
